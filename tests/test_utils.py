@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 from pandas import DataFrame
 import pytest
@@ -5,6 +7,7 @@ import datetime
 from unittest.mock import patch
 
 from src.utils import get_time_for_greeting, get_card_with_spend, get_top_transactions, get_path_and_period
+
 
 @pytest.mark.parametrize(
     "hour, expected",
@@ -70,6 +73,7 @@ def test_get_card_with_spend_param(df: DataFrame, expected: list[dict]):
 def _make_df(rows):
     return pd.DataFrame(rows)
 
+
 @pytest.mark.parametrize(
     "rows, top, expected",
     [
@@ -109,10 +113,12 @@ def test_get_top_transactions(rows, top, expected):
     result = get_top_transactions(df, top)
     assert result == expected
 
+
 def _write_excel_with_sheet(path: Path, df: pd.DataFrame, sheet_name: str = "Отчет по операциям"):
     # Записываем DataFrame в Excel-файл с заданным листом
     df.to_excel(path, sheet_name=sheet_name, index=False)
     return str(path)
+
 
 @pytest.mark.parametrize(
     "rows, period_date, expected_dates",

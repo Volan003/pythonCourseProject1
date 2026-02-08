@@ -33,7 +33,7 @@ URL_alphavantage = "https://www.alphavantage.co/query"
 def get_time_for_greeting():
     """Принимает время пользователя и выводит приветствие"""
     user_hour = datetime.now().hour
-    logger.info(f"Приветствуем пользователя")
+    logger.info("Приветствуем пользователя")
     if 6 <= user_hour < 12:
         return "Доброе утро"
     elif 12 <= user_hour < 18:
@@ -61,8 +61,8 @@ def get_path_and_period(path_to_file: str, period_date: list) -> DataFrame:
     start_date = datetime.strptime(period_date[0], "%d.%m.%Y %H:%M:%S")
     end_date = datetime.strptime(period_date[1], "%d.%m.%Y %H:%M:%S")
     filtered_df = df[
-        (df["Дата операции"] >= start_date) &
-        (df["Дата операции"] <= end_date)
+        (df["Дата операции"] >= start_date)
+        & (df["Дата операции"] <= end_date)
     ]
     sorted_df = filtered_df.sort_values(by="Дата операции", ascending=True)
     return sorted_df
@@ -70,7 +70,7 @@ def get_path_and_period(path_to_file: str, period_date: list) -> DataFrame:
 
 def get_card_with_spend(sorted_df: DataFrame) -> list[dict]:
     """Вывод списка словарей согласно ТЗ - список карт с расходами"""
-    logger.info(f"Выводим список карт с расходами")
+    logger.info("Выводим список карт с расходами")
     card_spend_transactions = []
     card_sorted = sorted_df[
         [
@@ -96,7 +96,7 @@ def get_card_with_spend(sorted_df: DataFrame) -> list[dict]:
 
 def get_top_transactions(sorted_df: DataFrame, get_top):
     """Выборка топ 5 операций по сумме платежа"""
-    logger.info(f"Получаем топ 5 операций")
+    logger.info("Получаем топ 5 операций")
     top_pay_transactions = []
     sorted_pay_df = sorted_df.sort_values(by="Сумма операции", ascending=False)
     top_transactions = sorted_pay_df.head(get_top)
@@ -122,7 +122,7 @@ def get_top_transactions(sorted_df: DataFrame, get_top):
 
 def get_currency(path_to_json: str) -> bool | list[Any] | list[dict[str, str]]:
     """Получение курсов валют"""
-    logger.info(f"Получаем курсы валют")
+    logger.info("Получаем курсы валют")
     currency_rates = []
     try:
         with open(path_to_json, "r", encoding="utf-8") as file:
@@ -163,7 +163,7 @@ def get_currency(path_to_json: str) -> bool | list[Any] | list[dict[str, str]]:
 
 def get_stock(path_to_json: str) -> list[dict]:
     """Выводим стоимость акций из S&P500"""
-    logger.info(f"Выводим стоимость акций из S&P500")
+    logger.info("Выводим стоимость акций из S&P500")
     stock_rates = []
     with open(path_to_json, 'r', encoding='utf-8') as file:
         data = json.load(file)

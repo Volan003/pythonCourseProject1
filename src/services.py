@@ -22,8 +22,7 @@ def analyze_cashback(path_to_file: str, year: int, month: int) -> str:
     df["Дата операции"] = pd.to_datetime(df["Дата операции"], format="%d.%m.%Y %H:%M:%S")
     filtered_data = df[
         (df["Дата операции"].dt.year == year)
-        &
-        (df["Дата операции"].dt.month == month)
+        & (df["Дата операции"].dt.month == month)
     ]
 
     filtered_data = filtered_data[filtered_data["Кэшбэк"] > 0]

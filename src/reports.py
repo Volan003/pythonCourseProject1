@@ -84,9 +84,9 @@ def spending_by_category(
 
     # Фильтрация
     filtered = transactions[
-        (pd.to_datetime(transactions["Дата операции"], dayfirst=True, errors="coerce") >= three_months_ago) &
-        (pd.to_datetime(transactions["Дата операции"], dayfirst=True, errors="coerce") <= reference_date) &
-        (transactions["Категория"] == category)
+        (pd.to_datetime(transactions["Дата операции"], dayfirst=True, errors="coerce") >= three_months_ago)
+        & (pd.to_datetime(transactions["Дата операции"], dayfirst=True, errors="coerce") <= reference_date)
+        & (transactions["Категория"] == category)
     ].copy()
 
     return filtered
